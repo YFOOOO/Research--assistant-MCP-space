@@ -1,0 +1,3 @@
+任务: 根据输入 JSON 抓取资料并返回数组，输出须包含 status, confidence, explain。
+输入: {{input_json}}
+输出格式: JSON array of {id,title,abstract,url,source,timestamp} 并额外顶层字段 status, confidence, explain

@@ -1,0 +1,9 @@
+name: data-collection-workflow
+trigger: manual
+steps:
+  - id: collect
+    agent: data_collector
+    input_from: user
+  - id: validate
+    agent: schema_validator
+    input_from: collect.output
