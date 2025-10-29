@@ -1,0 +1,54 @@
+flowchart LR
+    %% 顶层：MCP 与四类 Agent（双向）
+    MCP[MCP Research_Assistant]
+
+    A1[SearchAgent]
+    A2[AnalysisAgent]
+    A3[VizAgent]
+    A4[EditAgent]
+
+    MCP <--> A1
+    MCP <--> A2
+    MCP <--> A3
+    MCP <--> A4
+
+    %% 代理层的下一级流程：在每个 Agent 之后，接一个“Tools/次级代理”子图（同级，不嵌套）
+    %% SearchAgent -> Tools
+    A1 --> A1_TOOLS
+    subgraph A1_TOOLS[SearchAgent · Tools]
+      direction TB
+      A1_T1[Web Search]
+      A1_T2[RAG]
+      A1_T3[Zotero API]
+      A1_S1((CitationChecker))
+    end
+
+    %% AnalysisAgent -> Tools
+    A2 --> A2_TOOLS
+    subgraph A2_TOOLS[AnalysisAgent · Tools]
+      direction TB
+      A2_T1[Pandas/Polars]
+      A2_T2[SQL]
+      A2_T3[Notebook Runner]
+      A2_S1((DataValidator))
+    end
+
+    %% VizAgent -> Tools
+    A3 --> A3_TOOLS
+    subgraph A3_TOOLS[VizAgent · Tools]
+      direction TB
+      A3_T1[Vega-Lite]
+      A3_T2[Plotly]
+      A3_T3[D3 Export]
+      A3_S1((A11yAuditor))
+    end
+
+    %% EditAgent -> Tools
+    A4 --> A4_TOOLS
+    subgraph A4_TOOLS[EditAgent · Tools]
+      direction TB
+      A4_T1[LLM Editor]
+      A4_T2[Reference Formatter]
+      A4_T3[Grammar Check]
+      A4_S1((CitationLinker))
+    end
